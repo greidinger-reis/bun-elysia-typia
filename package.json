@@ -2,14 +2,21 @@
   "name": "test-typia",
   "version": "1.0.50",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "bun run --watch src/index.ts"
+    "typegen": "bunx typia generate --input ./src --output ./generated --project tsconfig.json",
+    "dev": "bun run --watch src/app.ts",
+    "build": "bun build ./generated/app.ts --target bun --outdir ./dist",
+    "start": "bun run typegen && bun run build && bun run --bun ./dist/app.js",
+    "postinstall": "ts-patch install"
   },
   "dependencies": {
-    "elysia": "latest"
+    "elysia": "latest",
+    "typia": "^5.0.2"
   },
   "devDependencies": {
-    "bun-types": "latest"
+    "bun-types": "latest",
+    "ts-node": "^10.9.1",
+    "ts-patch": "^3.0.2",
+    "typescript": "^5.2.2"
   },
   "module": "src/index.js"
 }
